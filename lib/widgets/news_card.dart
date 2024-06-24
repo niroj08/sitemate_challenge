@@ -70,7 +70,7 @@ class NewsCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 3.0,
           ),
         ],
