@@ -1,7 +1,6 @@
 import 'package:fllutter_sitemate_challenge/home/home_controller.dart';
 import 'package:fllutter_sitemate_challenge/widgets/news_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 

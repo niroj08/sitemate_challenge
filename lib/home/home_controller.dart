@@ -4,6 +4,7 @@ import 'dart:developer' as developer;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fllutter_sitemate_challenge/repository/base_api_service.dart';
 import 'package:fllutter_sitemate_challenge/repository/end_points.dart';
+import 'package:fllutter_sitemate_challenge/repository/localstorage.dart';
 import 'package:fllutter_sitemate_challenge/repository/model/news_article.dart';
 import 'package:fllutter_sitemate_challenge/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -53,11 +54,9 @@ class HomeController extends GetxController {
     print('Connectivity changed: $_connectionStatus');
   }
 
-  void incrementCounter() {
-    counter.value++;
-  }
-
   loadLatestNews() {
+    manageSearchHistory();
+
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     latestNewsLoading.value = true;
 
@@ -84,5 +83,13 @@ class HomeController extends GetxController {
 
   void onSearchChanged(String value) {
     searchValue.value = value;
+  }
+
+  void manageSearchHistory() {
+    List<String>? items = LocalStorage().readHistory();
+    items ??= [];
+    items.add(searchValue.value);
+
+    LocalStorage().storeHistory(items);
   }
 }
