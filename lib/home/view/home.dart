@@ -25,6 +25,11 @@ class MyHomePage extends StatelessWidget {
                       vertical: 60.0, horizontal: 20.0),
                   child: ListView(
                     children: <Widget>[
+                      const Text(
+                        'Sitemate Challenge',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 10.0),
                       SearchBar(
                         hintText: "Type something to search",
                         controller: controller.searchController,
@@ -63,6 +68,7 @@ class MyHomePage extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: Text(
             'Latest News',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         Obx(
@@ -70,36 +76,33 @@ class MyHomePage extends StatelessWidget {
               ? const SizedBox(
                   height: 24.0,
                   width: 24.0,
-                  child: CircularProgressIndicator(strokeWidth: 1.0,),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.0,
+                  ),
                 )
-              : controller.latestNews.isEmpty
-                  ? const SizedBox(
-                      height: 15.0,
-                      child: Text('Latest News not found.'),
-                    )
-                  : ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.latestNews.length,
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) => const SizedBox(
-                        height: 8.0,
-                      ),
-                      itemBuilder: (context, index) => GestureDetector(
-                        onTap: () {
-                          // Get.to(() => NewsDetail(
-                          //       news: controller.latestNews[index],
-                          //     ));
-                        },
-                        child: Visibility(
-                          visible: !controller.latestNews[index].title!
-                              .toLowerCase()
-                              .contains("removed"),
-                          child: NewsCard(
-                            news: controller.latestNews[index],
-                          ),
-                        ),
+              : ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.latestNews.length,
+                  shrinkWrap: true,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 2.0,
+                  ),
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      // Get.to(() => NewsDetail(
+                      //       news: controller.latestNews[index],
+                      //     ));
+                    },
+                    child: Visibility(
+                      visible: !controller.latestNews[index].title!
+                          .toLowerCase()
+                          .contains("removed"),
+                      child: NewsCard(
+                        news: controller.latestNews[index],
                       ),
                     ),
+                  ),
+                ),
         ),
       ],
     );

@@ -10,7 +10,7 @@ class DesignDimens {
 }
 
 class DesignColors {
-  static Color imageLoading = Color.fromARGB(66, 44, 115, 197);
+  static Color imageLoading = const Color.fromARGB(66, 44, 115, 197);
   static LinearGradient bgGradient =
       const LinearGradient(colors: [Colors.red, Colors.purple]);
 }

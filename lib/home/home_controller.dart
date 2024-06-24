@@ -58,6 +58,7 @@ class HomeController extends GetxController {
   }
 
   loadLatestNews() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     latestNewsLoading.value = true;
 
     Map<String, dynamic>? queryParameters = {
