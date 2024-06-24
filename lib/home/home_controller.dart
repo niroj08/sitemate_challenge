@@ -2,6 +2,11 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fllutter_sitemate_challenge/repository/base_api_service.dart';
+import 'package:fllutter_sitemate_challenge/repository/end_points.dart';
+import 'package:fllutter_sitemate_challenge/repository/model/news_article.dart';
+import 'package:fllutter_sitemate_challenge/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +16,11 @@ class HomeController extends GetxController {
   List<ConnectivityResult> _connectionStatus = [ConnectivityResult.none];
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
+  RxString searchValue = "".obs;
+  TextEditingController searchController = TextEditingController(text: "");
+
+  var latestNews = <NewsArticle>[];
+  var latestNewsLoading = false.obs;
 
   @override
   void onInit() {
@@ -45,5 +55,33 @@ class HomeController extends GetxController {
 
   void incrementCounter() {
     counter.value++;
+  }
+
+  loadLatestNews() {
+    latestNewsLoading.value = true;
+
+    Map<String, dynamic>? queryParameters = {
+      "apiKey": EndPoints.apiKey,
+      "q": searchValue.value,
+      "sortBy": "popularity",
+    };
+    BaseApiService()
+        .getArrayResponseWithParams(EndPoints.newsArticle, queryParameters)
+        .then((value) {
+      if (value.status) {
+        latestNews.clear();
+        for (var item in value.data) {
+          latestNews.add(NewsArticle.fromJson(item));
+        }
+        latestNewsLoading.value = false;
+      }
+    }).catchError((error) {
+      latestNewsLoading.value = false;
+      handleError(error);
+    });
+  }
+
+  void onSearchChanged(String value) {
+    searchValue.value = value;
   }
 }

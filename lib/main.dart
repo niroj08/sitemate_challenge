@@ -1,4 +1,4 @@
-import 'package:fllutter_sitemate_challenge/home/home.dart';
+import 'package:fllutter_sitemate_challenge/home/view/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

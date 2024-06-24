@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:fllutter_sitemate_challenge/utils/utils.dart';
 import 'api_config.dart';
@@ -13,6 +12,7 @@ class BaseApiService {
     if (await isConnectionAvailable()) {
       try {
         final response = await dio.get(url, queryParameters: queryParams);
+
         return BaseResponseModel<List<dynamic>>.fromJson(response.data);
       } catch (e) {
         rethrow;
